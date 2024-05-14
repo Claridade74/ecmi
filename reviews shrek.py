@@ -67,4 +67,4 @@ while next_page:
         break
 
 lista_reviews = pd.DataFrame(lista_reviews)
-lista_reviews
+st.write(lista_reviews)
