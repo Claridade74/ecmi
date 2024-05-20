@@ -11,7 +11,6 @@ csv_url = 'https://github.com/Claridade74/ecmi/blob/main/animals.csv'
 response = requests.get(csv_url)
 if response.status_code == 200:
     st.write("O arquivo CSV foi encontrado e está acessível.")
-    st.write(response.text[:1000])  # Mostra os primeiros 1000 caracteres do CSV
 else:
     st.error("Não foi possível acessar o arquivo CSV. Verifique a URL e as permissões.")
 
