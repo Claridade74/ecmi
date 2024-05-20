@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 st.title("Análise de Distribuição de Classes")
 
 # URL do arquivo CSV no GitHub
-csv_url = 'https://raw.githubusercontent.com/usuario/repositorio/main/caminho/para/o/arquivo.csv'
+csv_url = 'https://github.com/Claridade74/ecmi/blob/main/animals.csv'
 
 # Lê o arquivo CSV diretamente do GitHub
 df = pd.read_csv(csv_url)
