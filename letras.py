@@ -8,8 +8,7 @@ import string
 import nltk
 from nltk.corpus import stopwords
 
-nltk.download('punkt')
-nltk.download('stopwords')
+nltk.download('punkt
 
 df = pd.read_excel('letras_musicas.xlsx')
 
