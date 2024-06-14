@@ -4,4 +4,4 @@ seaborn
 streamlit
 requests
 altair
-worldcloud
+wordcloud
