@@ -5,3 +5,5 @@ streamlit
 requests
 altair
 wordcloud
+nltk
+random
