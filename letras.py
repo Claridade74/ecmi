@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 import random
-from wordcloud import WordCloud
+from wordcloud import WordCloud 
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 import string
