@@ -5,7 +5,6 @@ import wordcloud
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 import string
-import openpyxl
 
 df = pd.read_excel('letras_musicas.xlsx')
 
