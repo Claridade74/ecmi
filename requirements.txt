@@ -5,6 +5,3 @@ streamlit
 requests
 altair
 wordcloud
-nltk
-WordCloud
-opepyxl
