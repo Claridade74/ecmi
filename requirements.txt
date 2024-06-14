@@ -6,4 +6,4 @@ requests
 altair
 wordcloud
 nltk
-random
+WordCloud
