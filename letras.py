@@ -10,12 +10,20 @@ import time
 
 df = pd.read_csv('letras_musicas.csv')
 
+def get_random_color_func():
+    color_palettes = [
+        'viridis', 'winter', 'summer', 'prism', 'Accent', 'Blues', 'Oranges',
+        'GnBu', 'Purples', 'coolwarm', 'cool', 'gist_ncar_r', 'hsv', 'rainbow',
+        'spring', 'magma'
+    ]
+    return random.choice(color_palettes)
+
 def gerar_nuvem_e_opcoes(df):
     musica = df.sample(1).iloc[0]
     letra = musica['letra']
     artista_correto = musica['artista']
     
-    wordcloud = WordCloud(width=800, height=400, background_color='white').generate(letra)
+    wordcloud = WordCloud(width=800, height=400, background_color='white', colormap=color_func).generate(letra)
 
     artistas_unicos = df[df['artista'] != artista_correto]['artista'].unique()    
     outros_artistas = np.random.choice(artistas_unicos, 4, replace=False).tolist()
