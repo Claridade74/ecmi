@@ -15,7 +15,7 @@ def gerar_nuvem_e_opcoes(df):
     
     wordcloud = WordCloud(width=800, height=400, background_color='white').generate(letra)
     
-    outros_artistas = df[df['artista'] != artista_correto]['artista'].sample(4).tolist()
+    outros_artistas = df[df['artista'] != artista_correto]['artista'].sample(n=4, replace = False).tolist()
     
     opcoes = outros_artistas + [artista_correto]
     random.shuffle(opcoes)
