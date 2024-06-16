@@ -44,10 +44,5 @@ if st.button("Verificar"):
         st.error(f"Que pena! A resposta correta é {st.session_state.artista_correto}.")
         
     st.session_state.wordcloud, st.session_state.artista_correto, st.session_state.opcoes = gerar_nuvem_e_opcoes(df)
-    st.subheader("Tente adivinhar quem é o artista desta música:")
-    fig, ax = plt.subplots(figsize=(10, 5))
-    ax.imshow(st.session_state.wordcloud, interpolation='bilinear')
-    ax.axis('off')
-    st.pyplot(fig)
-    
-    escolha = st.radio("Quem é o artista desta música?", st.session_state.opcoes)
+    st.experimental_rerun()
+
