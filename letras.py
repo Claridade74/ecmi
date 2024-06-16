@@ -25,21 +25,25 @@ def gerar_nuvem_e_opcoes(df):
     
     return wordcloud, artista_correto, opcoes
 
-wordcloud, artista_correto, opcoes = gerar_nuvem_e_opcoes(df)
+
+df = pd.read_csv('letras_musicas.csv')
+
+if 'wordcloud' not in st.session_state:
+    st.session_state.wordcloud, st.session_state.artista_correto, st.session_state.opcoes = gerar_nuvem_e_opcoes(df)
 
 st.title("Adivinhe o Artista!")
 st.subheader("Tente adivinhar quem é o artista desta música:")
 fig, ax = plt.subplots(figsize=(10, 5))
-ax.imshow(wordcloud, interpolation='bilinear')
+ax.imshow(st.session_state.wordcloud, interpolation='bilinear')
 ax.axis('off')
 st.pyplot(fig)
 
-escolha = st.radio("Quem é o artista desta música?", opcoes)
+escolha = st.radio("Quem é o artista desta música?", st.session_state.opcoes)
 
 if st.button("Verificar"):
-    if escolha == artista_correto:
+    if escolha == st.session_state.artista_correto:
         st.success("Parabéns! Você acertou!")
-        time.sleep(2)
     else:
-        st.error(f"Que pena! A resposta correta é {artista_correto}.")
-        time.sleep(2)
+        st.error(f"Que pena! A resposta correta é {st.session_state.artista_correto}.")
+        
+    st.session_state.wordcloud, st.session_state.artista_correto, st.session_state.opcoes = gerar_nuvem_e_opcoes(df)
