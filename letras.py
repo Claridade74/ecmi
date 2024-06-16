@@ -5,6 +5,7 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 import string
+import time
 
 df = pd.read_csv('letras_musicas.csv')
 
@@ -36,5 +37,7 @@ escolha = st.radio("Quem é o artista desta música?", opcoes)
 if st.button("Verificar"):
     if escolha == artista_correto:
         st.success("Parabéns! Você acertou!")
+        time.sleep(2)
     else:
         st.error(f"Que pena! A resposta correta é {artista_correto}.")
+        time.sleep(2)
