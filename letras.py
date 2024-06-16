@@ -39,7 +39,7 @@ if 'wordcloud' not in st.session_state:
     st.session_state.wordcloud, st.session_state.artista_correto, st.session_state.opcoes = gerar_nuvem_e_opcoes(df)
 
 st.title("Adivinhe o Artista!")
-st.subheader("Tente adivinhar quem é o artista desta música:")
+st.subheader("Por meio desta nuvem de palavras, tente adivinhar quem é o artista desta música:")
 fig, ax = plt.subplots(figsize=(10, 5))
 ax.imshow(st.session_state.wordcloud, interpolation='bilinear')
 ax.axis('off')
