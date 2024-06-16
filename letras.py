@@ -10,8 +10,7 @@ import time
 
 df = pd.read_csv('letras_musicas.csv')
 
-st.set_page_config(layout="wide",
-                   page_icon='🎵')
+st.set_page_config(page_icon='🎵')
 
 def get_random_color_func():
     color_palettes = [
