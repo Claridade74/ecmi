@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 import string
 
-df = pd.read_excel('letras_musicas.xlsx')
+df = pd.read_csv('letras_musicas.csv')
 
 def gerar_nuvem_e_opcoes(df):
     musica = df.sample(1).iloc[0]
