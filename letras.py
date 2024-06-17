@@ -15,7 +15,7 @@ st.set_page_config(page_icon='🎵')
 with st.sidebar:
     st.subheader('Adivinhe: Um Jogo para Testar seus Conhecimentos Musicais')
     st.write('Esse projeto tem como objetivo oferecer um momento de diversão para qualquer pessoa com interesse em testar seus conhecimentos musicais!')
-    st.write('Ao todo, são 70 músicas de 16 artistas (nacionais e internacionais)!
+    st.write('Ao todo, são 70 músicas de 16 artistas (nacionais e internacionais)!')
     st.caption('Projeto desenvolvido por Clarissa Treptow, sob supervisão do Prof. Josir C. Gomes')
     st.caption('FGV ECMI')
 
