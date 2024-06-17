@@ -10,14 +10,24 @@ import time
 
 df = pd.read_csv('letras_musicas.csv')
 
+# Troca o ícone da aba do site, apenas para melhorar no design
 st.set_page_config(page_icon='🎵')
 
+#
 with st.sidebar:
     st.subheader('Adivinhe: Um Jogo para Testar seus Conhecimentos Musicais')
     st.write('Esse projeto tem como objetivo oferecer um momento de diversão para qualquer pessoa com interesse em testar seus conhecimentos musicais!')
     st.write('Ao todo, são 70 músicas de 16 artistas (nacionais e internacionais)!')
     st.caption('Projeto desenvolvido por Clarissa Treptow, sob supervisão do Prof. Josir C. Gomes')
     st.caption('FGV ECMI')
+
+# Define as stopwords a serem retiradas das nuvens de palavras geradas, que não agregam na identificação da música ou facilitam demais (como o nome do artista)
+def stopwords():
+    return set([
+        'a', 'e', 'o', 'que', 'de', 'da', 'do', 'em', 'um', 'uma', 'é', 'na', 'no', 'pra, 'com', 'taylor swift', 'ariana grande', 'anitta',
+        'luisa sonza', 'u2', 'lana del rey', 'panic at the disco', 'imagine dragons', 'justin timberlake', 'bon jovi', 'justin bieber',
+        'seu jorge', 'sabrina carpenter', 'djavan', 'shawn mendes', 'jorge ben jor'
+    ])
 
 def cores_diferentes():
     color_palettes = [
@@ -32,7 +42,7 @@ def gerar_nuvem_e_opcoes(df):
     letra = musica['letra']
     artista_correto = musica['artista']
     
-    wordcloud = WordCloud(width=800, height=400, background_color='white', colormap=cores_diferentes()).generate(letra)
+    wordcloud = WordCloud(width=800, height=400, background_color='white', colormap=cores_diferentes(), stopwords=stopwords()).generate(letra)
 
     artistas_unicos = df[df['artista'] != artista_correto]['artista'].unique()    
     outros_artistas = np.random.choice(artistas_unicos, 4, replace=False).tolist()
