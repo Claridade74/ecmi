@@ -73,10 +73,10 @@ if st.session_state.rodada <= 10:
 
     if st.button("Verificar"):
         if escolha == st.session_state.artista_correto:
-            st.success("Parabéns! Você acertou!")
+            st.success("Parabéns! Você acertou! Ganhou 5 pontos.")
             st.session_state.pontuacao += 5
         else:
-            st.error(f"Que pena! A resposta correta é {st.session_state.artista_correto}.")
+            st.error(f"Que pena! A resposta correta é {st.session_state.artista_correto}. Perdeu 5 pontos.")
             st.session_state.pontuacao -= 5
         
         st.session_state.rodada += 1
