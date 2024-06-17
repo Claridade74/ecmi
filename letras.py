@@ -12,6 +12,12 @@ df = pd.read_csv('letras_musicas.csv')
 
 st.set_page_config(page_icon='🎵')
 
+with st.sidebar:
+    st.subheader('Adivinhe: Um Jogo para Testar seus Conhecimentos Musicais')
+    st.write('Esse projeto tem como objetivo oferecer um momento de diversão para qualquer pessoa com interesse em testar seus conhecimentos musicais!')
+    st.caption('Projeto desenvolvido por Clarissa Treptow, sob supervisão do Prof. Josir C. Gomes')
+    st.caption('FGV ECMI')
+
 def cores_diferentes():
     color_palettes = [
         'viridis', 'winter', 'summer', 'prism', 'Accent', 'Blues', 'Oranges',
