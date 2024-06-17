@@ -76,7 +76,7 @@ if st.session_state.rodada <= 10:
             st.experimental_rerun()
         else:
             st.balloons()
-            st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao}")
+            st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao} pontos")
 
 else:
     st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao}")
