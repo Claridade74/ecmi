@@ -45,21 +45,39 @@ def gerar_nuvem_e_opcoes(df):
 if 'wordcloud' not in st.session_state:
     st.session_state.wordcloud, st.session_state.artista_correto, st.session_state.opcoes = gerar_nuvem_e_opcoes(df)
 
-st.title("Adivinhe o Artista!")
-st.subheader("Por meio desta nuvem de palavras, tente adivinhar quem é o artista desta música:")
-fig, ax = plt.subplots(figsize=(10, 5))
-ax.imshow(st.session_state.wordcloud, interpolation='bilinear')
-ax.axis('off')
-st.pyplot(fig)
+if 'rodada' not in st.session_state:
+    st.session_state.rodada = 1
 
-escolha = st.radio("Quem é o artista desta música?", st.session_state.opcoes)
+if 'pontuacao' not in st.session_state:
+    st.session_state.pontuacao = 0
 
-if st.button("Verificar"):
-    if escolha == st.session_state.artista_correto:
-        st.success("Parabéns! Você acertou!")
-    else:
-        st.error(f"Que pena! A resposta correta é {st.session_state.artista_correto}.")
+if st.session_state.rodada <= 10:
+    st.title(f"Rodada {st.session_state.rodada} de 10: Adivinhe o Artista!")
+    st.subheader("Por meio desta nuvem de palavras, tente adivinhar quem é o artista desta música:")
+    fig, ax = plt.subplots(figsize=(10, 5))
+    ax.imshow(st.session_state.wordcloud, interpolation='bilinear')
+    ax.axis('off')
+    st.pyplot(fig)
+
+    escolha = st.radio("Quem é o artista desta música?", st.session_state.opcoes)
+
+    if st.button("Verificar"):
+        if escolha == st.session_state.artista_correto:
+            st.success("Parabéns! Você acertou!")
+            st.session_state.pontuacao += 5
+        else:
+            st.error(f"Que pena! A resposta correta é {st.session_state.artista_correto}.")
+            st.session_state.pontuacao -= 5
         
-    st.session_state.wordcloud, st.session_state.artista_correto, st.session_state.opcoes = gerar_nuvem_e_opcoes(df)
-    st.experimental_rerun()
+        st.session_state.rodada += 1
+        
+        if st.session_state.rodada <= 10:
+            st.session_state.wordcloud, st.session_state.artista_correto, st.session_state.opcoes = gerar_nuvem_e_opcoes(df)
+            st.experimental_rerun()
+        else:
+            st.balloons()
+            st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao}")
 
+else:
+    st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao}")
+    st.button("Reiniciar", on_click=lambda: [st.session_state.update({'rodada': 1, 'pontuacao': 0})])
