@@ -24,7 +24,7 @@ with st.sidebar:
 # Define as stopwords a serem retiradas das nuvens de palavras geradas, que não agregam na identificação da música ou facilitam demais (como o nome do artista)
 def stopwords():
     return set([
-        'a', 'e', 'o', 'que', 'de', 'da', 'do', 'em', 'um', 'uma', 'é', 'na', 'no', 'pra, 'com', 'taylor swift', 'ariana grande', 'anitta',
+        'a', 'e', 'o', 'que', 'de', 'da', 'do', 'em', 'um', 'uma', 'é', 'na', 'no', 'pra', 'com', 'taylor swift', 'ariana grande', 'anitta',
         'luisa sonza', 'u2', 'lana del rey', 'panic at the disco', 'imagine dragons', 'justin timberlake', 'bon jovi', 'justin bieber',
         'seu jorge', 'sabrina carpenter', 'djavan', 'shawn mendes', 'jorge ben jor'
     ])
