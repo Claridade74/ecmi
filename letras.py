@@ -89,5 +89,5 @@ if st.session_state.rodada <= 10:
             st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao} pontos")
 
 else:
-    st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao}")
+    st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao} pontos!")
     st.button("Reiniciar", on_click=lambda: [st.session_state.update({'rodada': 1, 'pontuacao': 0})])
