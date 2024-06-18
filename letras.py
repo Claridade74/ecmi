@@ -11,7 +11,7 @@ import string
 df_nac = pd.read_csv('letras_musicas_nac.csv')
 df_int = pd.read_csv('letras_musicas_int.csv')
 
-background_image_url = "https://example.com/path/to/your/background_image.png"
+background_image_url = "https://github.com/Claridade74/ecmi/blob/main/notasmusicais.png"
 
 # Adiciona a imagem de fundo usando CSS
 st.markdown(
