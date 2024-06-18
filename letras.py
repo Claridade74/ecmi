@@ -30,8 +30,8 @@ st.markdown(
         color: white; /* Ajuste a cor do texto conforme necessário */
     }}
     </style>
-    """),
-    unsafe_allow_html=True
+    """,
+    unsafe_allow_html=True)
 
 # Para colocar o texto explicativo na parte lateral do site 
 with st.sidebar:
