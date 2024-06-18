@@ -6,7 +6,6 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 import string
-import time
 
 #Os dataframes com cada artista - nacional ou internacional
 df_nac = pd.read_csv('letras_musicas_nac.csv')
