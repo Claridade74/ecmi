@@ -22,13 +22,16 @@ st.markdown(
     f"""
     <style>
     .stApp {{
-        background: url({background_image_path});
+        background-image: url({background_image_path});
         background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        color: white; /* Ajuste a cor do texto conforme necessário */
     }}
     </style>
     """,
     unsafe_allow_html=True
-)
 
 # Para colocar o texto explicativo na parte lateral do site 
 with st.sidebar:
