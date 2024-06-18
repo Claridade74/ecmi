@@ -14,27 +14,6 @@ df_int = pd.read_csv('letras_musicas_int.csv')
 # Troca o ícone da aba do site, apenas para melhorar no design
 st.set_page_config(page_icon='🎵')
 
-# Adiciona a imagem de fundo usando CSS
-st.markdown(
-    """
-    <style>
-    .main {
-        background-color: #7F00FF;
-    }
-    .title {
-        text-align: center;
-        color: #00008B;
-    }
-    .highlight {
-        font-size: 1.2em;
-        color: #FF4500;
-        font-weight: bold;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
 # Para colocar o texto explicativo na parte lateral do site 
 with st.sidebar:
     st.subheader('Adivinhe: Um Jogo para Testar seus Conhecimentos Musicais')
@@ -51,7 +30,8 @@ def stopwords():
         'seu jorge', 'sabrina carpenter', 'djavan', 'shawn mendes', 'jorge ben jor', 'iza', 'caetano veloso', 'ivete sangalo', 'my', 'the',
         'to', 'te', 'os', 'of', 'luísa'
     ])
-
+    
+# Definindo uma função para gerar várias colorações para a nuvem de palavras
 def cores_diferentes():
     color_palettes = [
         'viridis', 'winter', 'summer', 'prism', 'Accent', 'Blues', 'Oranges',
@@ -60,6 +40,7 @@ def cores_diferentes():
     ]
     return random.choice(color_palettes)
 
+# Gera nuvens de palavras com uma letra aleatória, pega a opção correta do artista e também gera as outras opções "incorretas" 
 def gerar_nuvem_e_opcoes(df):
     musica = df.sample(1).iloc[0]
     letra = musica['letra']
