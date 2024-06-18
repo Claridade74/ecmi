@@ -189,11 +189,11 @@ with tab1:
 # Lógica do jogo "Adivinhe a Palavra"
 with tab2:
     if st.session_state.escolha_palavra is None:
-        st.title("Escolha o tipo de artista que você gostaria de adivinhar as palavras:")
-        if st.button("Artistas Nacionais", key="nacionais_palavra"):
+        st.title("Escolha o tipo de música que você gostaria de adivinhar a palavra:")
+        if st.button("Músicas Nacionais", key="nacionais_palavra"):
             st.session_state.escolha_palavra = "Nacionais"
             st.session_state.df_palavra = df_nac
-        elif st.button("Artistas Internacionais", key="internacionais_palavra"):
+        elif st.button("Músicas Internacionais", key="internacionais_palavra"):
             st.session_state.escolha_palavra = "Internacionais"
             st.session_state.df_palavra = df_int
     
@@ -203,7 +203,7 @@ with tab2:
         
         if st.session_state.rodada_palavra <= 10:
             st.title(f"Rodada {st.session_state.rodada_palavra} de 10: Adivinhe a Palavra!")
-            st.subheader("Tente adivinhar qual é a palavra original na sentença abaixo, substituída por '_____':")
+            st.subheader("Tente adivinhar qual é a palavra original na letra abaixo, substituída por '_____':")
             st.write(st.session_state.sentenca)
     
             escolha_palavra = st.radio("Qual é a palavra original?", st.session_state.opcoes_palavra)
