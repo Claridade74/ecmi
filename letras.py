@@ -29,7 +29,7 @@ def stopwords():
         'a', 'e', 'o', 'que', 'de', 'da', 'do', 'em', 'um', 'uma', 'é', 'na', 'no', 'pra', 'com', 'taylor swift', 'ariana grande', 'anitta',
         'luisa sonza', 'u2', 'lana del rey', 'panic at the disco', 'imagine dragons', 'justin timberlake', 'bon jovi', 'justin bieber',
         'seu jorge', 'sabrina carpenter', 'djavan', 'shawn mendes', 'jorge ben jor', 'iza', 'caetano veloso', 'ivete sangalo', 'my', 'the',
-        'to', 'te', 'os', 'of'
+        'to', 'te', 'os', 'of', 'luísa'
     ])
 
 def cores_diferentes():
