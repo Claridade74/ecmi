@@ -124,9 +124,9 @@ if 'opcoes' not in st.session_state:
 if 'pontuacao_palavra' not in st.session_state:
     st.session_state.pontuacao_palavra = 0
 
-tab1, tab2 = st.tabs(["Adivinhe o Artista", "Adivinhe a Palavra"])
+tab = st.tabs(["Adivinhe o Artista", "Adivinhe a Palavra"])
 
-with tab1:
+with tab[0]:
     # Adiciona botões para o usuário escolher entre músicas nacionais e internacionais
     if st.session_state.escolha is None:
         st.title("Escolha o tipo de artista que você gostaria de adivinhar as músicas:")
@@ -182,7 +182,7 @@ with tab1:
             if st.button("Reiniciar"):
                 st.session_state.update({'escolha': None, 'rodada': 1, 'pontuacao': 0, 'wordcloud': None})
 
-with tab2:                                        
+with tab[1]:                                        
     # Jogo Adivinhe a Palavra Faltante
     if st.session_state.escolha_palavra is not None:
         if st.session_state.sentenca is None:
