@@ -13,7 +13,7 @@ df_nac = pd.read_csv('letras_musicas_nac.csv')
 df_int = pd.read_csv('letras_musicas_int.csv')
 
 # Caminho relativo para a imagem de fundo
-background_image_path = "notasmusicais.jpg" 
+background_image_path = "notasmusicais.png" 
 
 # Adiciona a imagem de fundo usando CSS
 st.markdown(
