@@ -17,7 +17,7 @@ st.set_page_config(page_icon='🎵')
 with st.sidebar:
     st.subheader('Adivinhe: Um Jogo para Testar seus Conhecimentos Musicais')
     st.write('Esse projeto tem como objetivo oferecer um momento de diversão para qualquer pessoa com interesse em testar seus conhecimentos musicais!')
-    st.write('Ao todo, são 70 músicas de 16 artistas (nacionais e internacionais)!')
+    st.write('Ao todo, são 80 músicas de 19 artistas (entre nacionais e internacionais)!')
     st.caption('Projeto desenvolvido por Clarissa Treptow, sob supervisão do Prof. Josir C. Gomes')
     st.caption('FGV ECMI')
 
@@ -26,7 +26,8 @@ def stopwords():
     return set([
         'a', 'e', 'o', 'que', 'de', 'da', 'do', 'em', 'um', 'uma', 'é', 'na', 'no', 'pra', 'com', 'taylor swift', 'ariana grande', 'anitta',
         'luisa sonza', 'u2', 'lana del rey', 'panic at the disco', 'imagine dragons', 'justin timberlake', 'bon jovi', 'justin bieber',
-        'seu jorge', 'sabrina carpenter', 'djavan', 'shawn mendes', 'jorge ben jor'
+        'seu jorge', 'sabrina carpenter', 'djavan', 'shawn mendes', 'jorge ben jor', 'iza', 'caetano veloso', 'ivete sangalo', 'my', 'the',
+        'to', 'te', 'os', 'of'
     ])
 
 def cores_diferentes():
