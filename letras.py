@@ -11,6 +11,9 @@ import string
 df_nac = pd.read_csv('letras_musicas_nac.csv')
 df_int = pd.read_csv('letras_musicas_int.csv')
 
+# Troca o ícone da aba do site, apenas para melhorar no design
+st.set_page_config(page_icon='🎵')
+
 # Caminho relativo para a imagem de fundo
 background_image_path = "notasmusicais.png" 
 
@@ -26,9 +29,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
-# Troca o ícone da aba do site, apenas para melhorar no design
-st.set_page_config(page_icon='🎵')
 
 # Para colocar o texto explicativo na parte lateral do site 
 with st.sidebar:
