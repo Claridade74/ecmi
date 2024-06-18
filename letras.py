@@ -55,16 +55,12 @@ def gerar_nuvem_e_opcoes(df):
     
     return wordcloud, artista_correto, opcoes
 
-# Opção para o usuário escolher entre músicas de artistas nacionais ou internacionais
-escolha = st.selectbox("Escolha o tipo de música que você quer adivinhar:", ["Nacionais", "Internacionais"])
-
-if escolha == "Nacionais":
-    df = df_nac
-else:
-    df = df_int
+# Inicializa a escolha do usuário e as variáveis de estado
+if 'escolha' not in st.session_state:
+    st.session_state.escolha = None
 
 if 'wordcloud' not in st.session_state:
-    st.session_state.wordcloud, st.session_state.artista_correto, st.session_state.opcoes = gerar_nuvem_e_opcoes(df)
+    st.session_state.wordcloud = None
 
 if 'rodada' not in st.session_state:
     st.session_state.rodada = 1
@@ -72,41 +68,57 @@ if 'rodada' not in st.session_state:
 if 'pontuacao' not in st.session_state:
     st.session_state.pontuacao = 0
 
-if st.session_state.rodada <= 10:
-    st.title(f"Rodada {st.session_state.rodada} de 10: Adivinhe o Artista!")
-    st.subheader("Por meio desta nuvem de palavras, tente adivinhar quem é o artista desta música:")
-    fig, ax = plt.subplots(figsize=(10, 5))
-    ax.imshow(st.session_state.wordcloud, interpolation='bilinear')
-    ax.axis('off')
-    st.pyplot(fig)
+# Adiciona botões para o usuário escolher entre músicas nacionais e internacionais
+if st.session_state.escolha is None:
+    st.title("Escolha o tipo de música que você quer adivinhar:")
+    if st.button("Músicas Nacionais"):
+        st.session_state.escolha = "Nacionais"
+        st.session_state.df = df_nac
+    elif st.button("Músicas Internacionais"):
+        st.session_state.escolha = "Internacionais"
+        st.session_state.df = df_int
 
-    escolha = st.radio("Quem é o artista desta música?", st.session_state.opcoes)
+# Inicia o jogo após a escolha
+if st.session_state.escolha is not None:
+    if st.session_state.wordcloud is None:
+        st.session_state.wordcloud, st.session_state.artista_correto, st.session_state.opcoes = gerar_nuvem_e_opcoes(st.session_state.df)
+    
+    if st.session_state.rodada <= 10:
+        st.title(f"Rodada {st.session_state.rodada} de 10: Adivinhe o Artista!")
+        st.subheader("Por meio desta nuvem de palavras, tente adivinhar quem é o artista desta música:")
+        fig, ax = plt.subplots(figsize=(10, 5))
+        ax.imshow(st.session_state.wordcloud, interpolation='bilinear')
+        ax.axis('off')
+        st.pyplot(fig)
 
-    if st.button("Verificar"):
-        if escolha == st.session_state.artista_correto:
-            st.success("Parabéns! Você acertou! Ganhou 5 pontos.")
-            st.session_state.pontuacao += 5
-        else:
-            st.error(f"Que pena! A resposta correta é {st.session_state.artista_correto}. Perdeu 5 pontos.")
-            st.session_state.pontuacao -= 5
-        
-        st.session_state.rodada += 1
-        
-        if st.session_state.rodada <= 10:
-            st.session_state.wordcloud, st.session_state.artista_correto, st.session_state.opcoes = gerar_nuvem_e_opcoes(df)
-            st.experimental_rerun()
-        else:
-            st.balloons()
-            st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao} pontos!")
-            if st.session_state.pontuacao <= 10:
-                st.write("Seus conhecimentos musicais podem melhorar!")
+        escolha = st.radio("Quem é o artista desta música?", st.session_state.opcoes)
+
+        if st.button("Verificar"):
+            if escolha == st.session_state.artista_correto:
+                st.success("Parabéns! Você acertou! Ganhou 5 pontos.")
+                st.session_state.pontuacao += 5
             else:
-                st.write("Seus conhecimentos musicais são bem amplos!")
+                st.error(f"Que pena! A resposta correta é {st.session_state.artista_correto}. Perdeu 5 pontos.")
+                st.session_state.pontuacao -= 5
 
-else:
-    st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao} pontos!")
-    if st.session_state.pontuacao <= 10:
-        st.write("Seus conhecimentos musicais podem melhorar!")
+            st.session_state.rodada += 1
+
+            if st.session_state.rodada <= 10:
+                st.session_state.wordcloud, st.session_state.artista_correto, st.session_state.opcoes = gerar_nuvem_e_opcoes(st.session_state.df)
+                st.experimental_rerun()
+            else:
+                st.balloons()
+                st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao} pontos!")
+                if st.session_state.pontuacao <= 10:
+                    st.write("Seus conhecimentos musicais podem melhorar!")
+                else:
+                    st.write("Seus conhecimentos musicais são bem amplos!")
+
     else:
-        st.write("Seus conhecimentos musicais são bem amplos!")
-    st.button("Reiniciar", on_click=lambda: [st.session_state.update({'rodada': 1, 'pontuacao': 0})])
+        st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao} pontos!")
+        if st.session_state.pontuacao <= 10:
+            st.write("Seus conhecimentos musicais podem melhorar!")
+        else:
+            st.write("Seus conhecimentos musicais são bem amplos!")
+        if st.button("Reiniciar"):
+            st.session_state.update({'escolha': None, 'rodada': 1, 'pontuacao': 0, 'wordcloud': None})
