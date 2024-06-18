@@ -95,20 +95,20 @@ def gerar_sentenca_e_opcoes(df):
 
     return sentenca, palavra_correta, opcoes
 
-# Inicializa a escolha do usuário e as variáveis de estado
-if 'escolha' not in st.session_state:
-    st.session_state.escolha = None
+# Inicializando estados para o jogo de adivinhar o artista
+if 'escolha_artista' not in st.session_state:
+    st.session_state.escolha_artista = None
 
 if 'wordcloud' not in st.session_state:
     st.session_state.wordcloud = None
 
-if 'rodada' not in st.session_state:
-    st.session_state.rodada = 1
+if 'rodada_artista' not in st.session_state:
+    st.session_state.rodada_artista = 1
 
-if 'pontuacao' not in st.session_state:
-    st.session_state.pontuacao = 0
+if 'pontuacao_artista' not in st.session_state:
+    st.session_state.pontuacao_artista = 0
 
-# Inicializa a escolha do usuário e as variáveis de estado para o jogo de adivinhar a palavra
+# Inicializando estados para o jogo de adivinhar a palavra
 if 'escolha_palavra' not in st.session_state:
     st.session_state.escolha_palavra = None
 
@@ -121,67 +121,72 @@ if 'palavra_correta' not in st.session_state:
 if 'opcoes_palavra' not in st.session_state:
     st.session_state.opcoes_palavra = None
 
+if 'rodada_palavra' not in st.session_state:
+    st.session_state.rodada_palavra = 1
+
 if 'pontuacao_palavra' not in st.session_state:
     st.session_state.pontuacao_palavra = 0
 
 tab1, tab2 = st.tabs(["Adivinhe o Artista", "Adivinhe a Palavra"])
 
 with tab1:
-    # Adiciona botões para o usuário escolher entre músicas nacionais e internacionais
-    if st.session_state.escolha is None:
+    if st.session_state.escolha_artista is None:
         st.title("Escolha o tipo de artista que você gostaria de adivinhar as músicas:")
         if st.button("Artistas Nacionais"):
-            st.session_state.escolha = "Nacionais"
-            st.session_state.df = df_nac
+            st.session_state.escolha_artista = "Nacionais"
+            st.session_state.df_artista = df_nac
         elif st.button("Artistas Internacionais"):
-            st.session_state.escolha = "Internacionais"
-            st.session_state.df = df_int
+            st.session_state.escolha_artista = "Internacionais"
+            st.session_state.df_artista = df_int
     
-    # Inicia o jogo após a escolha
-    if st.session_state.escolha is not None:
+    if st.session_state.escolha_artista is not None:
         if st.session_state.wordcloud is None:
-            st.session_state.wordcloud, st.session_state.artista_correto, st.session_state.opcoes = gerar_nuvem_e_opcoes(st.session_state.df)
+            st.session_state.wordcloud, st.session_state.artista_correto, st.session_state.opcoes_artista = gerar_nuvem_e_opcoes(st.session_state.df_artista)
         
-        if st.session_state.rodada <= 10:
-            st.title(f"Rodada {st.session_state.rodada} de 10: Adivinhe o Artista!")
+        if st.session_state.rodada_artista <= 10:
+            st.title(f"Rodada {st.session_state.rodada_artista} de 10: Adivinhe o Artista!")
             st.subheader("Por meio desta nuvem de palavras, tente adivinhar quem é o artista desta música:")
             fig, ax = plt.subplots(figsize=(10, 5))
             ax.imshow(st.session_state.wordcloud, interpolation='bilinear')
             ax.axis('off')
             st.pyplot(fig)
     
-            escolha = st.radio("Quem é o artista desta música?", st.session_state.opcoes)
+            escolha_artista = st.radio("Quem é o artista desta música?", st.session_state.opcoes_artista)
     
-            if st.button("Verificar"):
-                if escolha == st.session_state.artista_correto:
+            if st.button("Verificar", key="verificar_artista"):
+                if escolha_artista == st.session_state.artista_correto:
                     st.success("Parabéns! Você acertou! Ganhou 5 pontos.")
-                    st.session_state.pontuacao += 5
+                    st.session_state.pontuacao_artista += 5
                 else:
                     st.error(f"Que pena! A resposta correta é {st.session_state.artista_correto}. Perdeu 5 pontos.")
-                    st.session_state.pontuacao -= 5
+                    st.session_state.pontuacao_artista -= 5
     
-                st.session_state.rodada += 1
+                st.session_state.rodada_artista += 1
     
-                if st.session_state.rodada <= 10:
-                    st.session_state.wordcloud, st.session_state.artista_correto, st.session_state.opcoes = gerar_nuvem_e_opcoes(st.session_state.df)
+                if st.session_state.rodada_artista <= 10:
+                    st.session_state.wordcloud, st.session_state.artista_correto, st.session_state.opcoes_artista = gerar_nuvem_e_opcoes(st.session_state.df_artista)
                     st.experimental_rerun()
                 else:
                     st.balloons()
-                    st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao} pontos!")
-                    if st.session_state.pontuacao <= 10:
+                    st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao_artista} pontos!")
+                    if st.session_state.pontuacao_artista <= 10:
                         st.write("Seus conhecimentos musicais podem melhorar!")
                     else:
                         st.write("Seus conhecimentos musicais são bem amplos!")
-    
         else:
-            st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao} pontos!")
-            if st.session_state.pontuacao <= 10:
+            st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao_artista} pontos!")
+            if st.session_state.pontuacao_artista <= 10:
                 st.write("Seus conhecimentos musicais podem melhorar!")
             else:
                 st.write("Seus conhecimentos musicais são bem amplos!")
             if st.button("Reiniciar"):
-                st.session_state.update({'escolha': None, 'rodada': 1, 'pontuacao': 0, 'wordcloud': None})
+                st.session_state.update({
+                    'escolha_artista': None, 'rodada_artista': 1, 'pontuacao_artista': 0, 'wordcloud': None,
+                    'escolha_palavra': st.session_state.escolha_palavra, 'rodada_palavra': st.session_state.rodada_palavra,
+                    'pontuacao_palavra': st.session_state.pontuacao_palavra, 'sentenca': st.session_state.sentenca
+                })
 
+# Lógica do jogo "Adivinhe a Palavra"
 with tab2:
     if st.session_state.escolha_palavra is None:
         st.title("Escolha o tipo de artista que você gostaria de adivinhar as palavras:")
@@ -192,13 +197,12 @@ with tab2:
             st.session_state.escolha_palavra = "Internacionais"
             st.session_state.df_palavra = df_int
     
-    # Inicia o jogo após a escolha
     if st.session_state.escolha_palavra is not None:
         if st.session_state.sentenca is None:
             st.session_state.sentenca, st.session_state.palavra_correta, st.session_state.opcoes_palavra = gerar_sentenca_e_opcoes(st.session_state.df_palavra)
         
-        if st.session_state.rodada <= 10:
-            st.title(f"Rodada {st.session_state.rodada} de 10: Adivinhe a Palavra!")
+        if st.session_state.rodada_palavra <= 10:
+            st.title(f"Rodada {st.session_state.rodada_palavra} de 10: Adivinhe a Palavra!")
             st.subheader("Tente adivinhar qual é a palavra original na sentença abaixo, substituída por '_____':")
             st.write(st.session_state.sentenca)
     
@@ -212,9 +216,9 @@ with tab2:
                     st.error(f"Que pena! A resposta correta é {st.session_state.palavra_correta}. Perdeu 5 pontos.")
                     st.session_state.pontuacao_palavra -= 5
     
-                st.session_state.rodada += 1
+                st.session_state.rodada_palavra += 1
     
-                if st.session_state.rodada <= 10:
+                if st.session_state.rodada_palavra <= 10:
                     st.session_state.sentenca, st.session_state.palavra_correta, st.session_state.opcoes_palavra = gerar_sentenca_e_opcoes(st.session_state.df_palavra)
                     st.experimental_rerun()
                 else:
@@ -231,4 +235,8 @@ with tab2:
             else:
                 st.write("Seus conhecimentos estão bem amplos!")
             if st.button("Reiniciar", key="reiniciar_palavra"):
-                st.session_state.update({'escolha_palavra': None, 'rodada': 1, 'pontuacao_palavra': 0, 'sentenca': None})
+                st.session_state.update({
+                    'escolha_palavra': None, 'rodada_palavra': 1, 'pontuacao_palavra': 0, 'sentenca': None,
+                    'escolha_artista': st.session_state.escolha_artista, 'rodada_artista': st.session_state.rodada_artista,
+                    'pontuacao_artista': st.session_state.pontuacao_artista, 'wordcloud': st.session_state.wordcloud
+                })
