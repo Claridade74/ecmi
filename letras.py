@@ -183,7 +183,6 @@ with tab1:
                 st.session_state.update({'escolha': None, 'rodada': 1, 'pontuacao': 0, 'wordcloud': None})
 
 with tab2:
-    # Adiciona botões para o usuário escolher entre músicas nacionais e internacionais para o jogo de adivinhar a palavra
     if st.session_state.escolha_palavra is None:
         st.title("Escolha o tipo de artista que você gostaria de adivinhar as palavras:")
         if st.button("Artistas Nacionais", key="nacionais_palavra"):
