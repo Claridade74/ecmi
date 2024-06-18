@@ -14,25 +14,6 @@ df_int = pd.read_csv('letras_musicas_int.csv')
 # Troca o ícone da aba do site, apenas para melhorar no design
 st.set_page_config(page_icon='🎵')
 
-background_image_url = "https://github.com/Claridade74/ecmi/blob/main/notasmusicais.png"
-
-# Adiciona a imagem de fundo usando CSS
-st.markdown(
-    f"""
-    <style>
-    .stApp {{
-        background-image: url('{background_image_url}');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: center;
-        color: white; 
-    }}
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
 # Para colocar o texto explicativo na parte lateral do site 
 with st.sidebar:
     st.subheader('Adivinhe: Um Jogo para Testar seus Conhecimentos Musicais')
