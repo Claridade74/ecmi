@@ -11,6 +11,25 @@ import string
 df_nac = pd.read_csv('letras_musicas_nac.csv')
 df_int = pd.read_csv('letras_musicas_int.csv')
 
+background_image_url = "https://example.com/path/to/your/background_image.png"
+
+# Adiciona a imagem de fundo usando CSS
+st.markdown(
+    f"""
+    <style>
+    .stApp {{
+        background-image: url('{background_image_url}');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        color: white; /* Ajuste a cor do texto conforme necessário */
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Troca o ícone da aba do site, apenas para melhorar no design
 st.set_page_config(page_icon='🎵')
 
@@ -56,26 +75,23 @@ def gerar_nuvem_e_opcoes(df):
     
     return wordcloud, artista_correto, opcoes
 
+# Pega uma letra aleatória, separa a letra para retirar uma palavra aleatória para ser substituída por uma "____" e também pega outras 4 palavras incorretas para as outras opções
 def gerar_sentenca_e_opcoes(df):
     musica = df.sample(1).iloc[0]
     letra = musica['letra']
     palavras = letra.split()
 
-    # Garante que haja pelo menos 5 palavras na letra selecionada
     if len(palavras) < 5:
         return gerar_sentenca_e_opcoes(df)
 
-    # Seleciona aleatoriamente uma palavra para ser substituída
     indice = random.randint(0, len(palavras) - 1)
     palavra_correta = palavras[indice]
     palavras[indice] = '_____'
     sentenca = ' '.join(palavras)
 
-    # Seleciona outras palavras únicas como opções
     palavras_unicas = df['letra'].str.split(expand=True).stack().unique()
     outras_palavras = np.random.choice(palavras_unicas, 4, replace=False).tolist()
 
-    # Adiciona a palavra correta às opções e as embaralha
     opcoes = outras_palavras + [palavra_correta]
     random.shuffle(opcoes)
 
@@ -113,9 +129,12 @@ if 'rodada_palavra' not in st.session_state:
 if 'pontuacao_palavra' not in st.session_state:
     st.session_state.pontuacao_palavra = 0
 
+# Separando o site em duas abas, uma para cada um dos jogos de adivinhação
 tab1, tab2 = st.tabs(["Adivinhe o Artista", "Adivinhe a Palavra"])
 
+# Primeiro jogo, para adivinhar o artista a partir da música contida na nuvem de palavras
 with tab1:
+    # Oferece duas opções para o usuário escolher entre artistas internacionais ou nacionais
     if st.session_state.escolha_artista is None:
         st.title("Escolha o tipo de artista que você gostaria de adivinhar as músicas:")
         if st.button("Artistas Nacionais"):
@@ -172,8 +191,9 @@ with tab1:
                     'pontuacao_palavra': st.session_state.pontuacao_palavra, 'sentenca': st.session_state.sentenca
                 })
 
-# Lógica do jogo "Adivinhe a Palavra"
+# Segundo jogo, para adivinhar qual é a palavra que completa a letra da música
 with tab2:
+    # Oferece duas opções para o usuário escolher entre músicas internacionais ou nacionais
     if st.session_state.escolha_palavra is None:
         st.title("Escolha o tipo de música que você gostaria de adivinhar a palavra:")
         if st.button("Músicas Nacionais", key="nacionais_palavra"):
