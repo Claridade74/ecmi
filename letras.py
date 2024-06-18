@@ -19,19 +19,24 @@ background_image_path = "notasmusicais.png"
 
 # Adiciona a imagem de fundo usando CSS
 st.markdown(
-    f"""
+    """
     <style>
-    .stApp {{
-        background-image: url({background_image_path});
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: center;
-        color: white; /* Ajuste a cor do texto conforme necessário */
-    }}
+    .main {
+        background-color: #92a8d1;
+    }
+    .title {
+        text-align: center;
+        color: #00008B;
+    }
+    .highlight {
+        font-size: 1.2em;
+        color: #FF4500;
+        font-weight: bold;
+    }
     </style>
     """,
-    unsafe_allow_html=True)
+    unsafe_allow_html=True
+)
 
 # Para colocar o texto explicativo na parte lateral do site 
 with st.sidebar:
