@@ -12,10 +12,26 @@ import time
 df_nac = pd.read_csv('letras_musicas_nac.csv')
 df_int = pd.read_csv('letras_musicas_int.csv')
 
+# Caminho relativo para a imagem de fundo
+background_image_path = "notasmusicais.jpg" 
+
+# Adiciona a imagem de fundo usando CSS
+st.markdown(
+    f"""
+    <style>
+    .stApp {{
+        background: url({background_image_path});
+        background-size: cover;
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Troca o ícone da aba do site, apenas para melhorar no design
 st.set_page_config(page_icon='🎵')
 
-#
+# Para colocar o texto explicativo na parte lateral do site 
 with st.sidebar:
     st.subheader('Adivinhe: Um Jogo para Testar seus Conhecimentos Musicais')
     st.write('Esse projeto tem como objetivo oferecer um momento de diversão para qualquer pessoa com interesse em testar seus conhecimentos musicais!')
