@@ -8,7 +8,9 @@ import matplotlib.font_manager as fm
 import string
 import time
 
-df = pd.read_csv('letras_musicas.csv')
+#Os dataframes com cada artista - nacional ou internacional
+df_nac = pd.read_csv('letras_musicas_nac.csv')
+df_int = pd.read_csv('letras_musicas_int.csv')
 
 # Troca o ícone da aba do site, apenas para melhorar no design
 st.set_page_config(page_icon='🎵')
@@ -53,6 +55,14 @@ def gerar_nuvem_e_opcoes(df):
     
     return wordcloud, artista_correto, opcoes
 
+# Opção para o usuário escolher entre músicas de artistas nacionais ou internacionais
+escolha = st.selectbox("Escolha o tipo de música que você quer adivinhar:", ["Nacionais", "Internacionais"])
+
+if escolha == "Nacionais":
+    df = df_nac
+else:
+    df = df_int
+
 if 'wordcloud' not in st.session_state:
     st.session_state.wordcloud, st.session_state.artista_correto, st.session_state.opcoes = gerar_nuvem_e_opcoes(df)
 
@@ -87,8 +97,16 @@ if st.session_state.rodada <= 10:
             st.experimental_rerun()
         else:
             st.balloons()
-            st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao} pontos")
+            st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao} pontos!")
+            if st.session_state.pontuacao <= 10:
+                st.write("Seus conhecimentos musicais podem melhorar!")
+            else:
+                st.write("Seus conhecimentos musicais são bem amplos!")
 
 else:
     st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao} pontos!")
+    if st.session_state.pontuacao <= 10:
+        st.write("Seus conhecimentos musicais podem melhorar!")
+    else:
+        st.write("Seus conhecimentos musicais são bem amplos!")
     st.button("Reiniciar", on_click=lambda: [st.session_state.update({'rodada': 1, 'pontuacao': 0})])
