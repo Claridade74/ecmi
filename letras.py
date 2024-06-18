@@ -118,15 +118,15 @@ if 'sentenca' not in st.session_state:
 if 'palavra_correta' not in st.session_state:
     st.session_state.palavra_correta = None
 
-if 'opcoes' not in st.session_state:
-    st.session_state.opcoes = None
+if 'opcoes_palavra' not in st.session_state:
+    st.session_state.opcoes_palavra = None
 
 if 'pontuacao_palavra' not in st.session_state:
     st.session_state.pontuacao_palavra = 0
 
-tab = st.tabs(["Adivinhe o Artista", "Adivinhe a Palavra"])
+tab1, tab2 = st.tabs(["Adivinhe o Artista", "Adivinhe a Palavra"])
 
-with tab[0]:
+with tab1:
     # Adiciona botões para o usuário escolher entre músicas nacionais e internacionais
     if st.session_state.escolha is None:
         st.title("Escolha o tipo de artista que você gostaria de adivinhar as músicas:")
@@ -182,46 +182,54 @@ with tab[0]:
             if st.button("Reiniciar"):
                 st.session_state.update({'escolha': None, 'rodada': 1, 'pontuacao': 0, 'wordcloud': None})
 
-with tab[1]:                                        
-    # Jogo Adivinhe a Palavra Faltante
+with tab2:
+    # Adiciona botões para o usuário escolher entre músicas nacionais e internacionais para o jogo de adivinhar a palavra
+    if st.session_state.escolha_palavra is None:
+        st.title("Escolha o tipo de artista que você gostaria de adivinhar as palavras:")
+        if st.button("Artistas Nacionais", key="nacionais_palavra"):
+            st.session_state.escolha_palavra = "Nacionais"
+            st.session_state.df_palavra = df_nac
+        elif st.button("Artistas Internacionais", key="internacionais_palavra"):
+            st.session_state.escolha_palavra = "Internacionais"
+            st.session_state.df_palavra = df_int
+    
+    # Inicia o jogo após a escolha
     if st.session_state.escolha_palavra is not None:
         if st.session_state.sentenca is None:
             st.session_state.sentenca, st.session_state.palavra_correta, st.session_state.opcoes_palavra = gerar_sentenca_e_opcoes(st.session_state.df_palavra)
         
         if st.session_state.rodada <= 10:
-            st.title(f"Rodada {st.session_state.rodada} de 10: Adivinhe a Palavra Faltante!")
+            st.title(f"Rodada {st.session_state.rodada} de 10: Adivinhe a Palavra!")
             st.subheader("Tente adivinhar qual é a palavra original na sentença abaixo, substituída por '_____':")
             st.write(st.session_state.sentenca)
     
             escolha_palavra = st.radio("Qual é a palavra original?", st.session_state.opcoes_palavra)
     
-            if st.button("Verificar"):
+            if st.button("Verificar", key="verificar_palavra"):
                 if escolha_palavra == st.session_state.palavra_correta:
                     st.success("Parabéns! Você acertou! Ganhou 5 pontos.")
                     st.session_state.pontuacao_palavra += 5
                 else:
                     st.error(f"Que pena! A resposta correta é {st.session_state.palavra_correta}. Perdeu 5 pontos.")
-                    st.session_state.pontuacao -= 5
+                    st.session_state.pontuacao_palavra -= 5
     
                 st.session_state.rodada += 1
     
                 if st.session_state.rodada <= 10:
-                    st.session_state.word_to_guess, st.session_state.palavra_correta, st.session_state.opcoes = gerar_palavra_e_opcoes(st.session_state.df)
+                    st.session_state.sentenca, st.session_state.palavra_correta, st.session_state.opcoes_palavra = gerar_sentenca_e_opcoes(st.session_state.df_palavra)
                     st.experimental_rerun()
                 else:
                     st.balloons()
-                    st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao} pontos!")
-                    if st.session_state.pontuacao <= 10:
+                    st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao_palavra} pontos!")
+                    if st.session_state.pontuacao_palavra <= 10:
                         st.write("Seus conhecimentos podem melhorar!")
                     else:
                         st.write("Seus conhecimentos estão bem amplos!")
-    
         else:
-            st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao} pontos!")
-            if st.session_state.pontuacao <= 10:
+            st.write(f"Jogo terminado! Sua pontuação final é: {st.session_state.pontuacao_palavra} pontos!")
+            if st.session_state.pontuacao_palavra <= 10:
                 st.write("Seus conhecimentos podem melhorar!")
             else:
                 st.write("Seus conhecimentos estão bem amplos!")
-    
-            if st.button("Reiniciar"):
-                st.session_state.update({'escolha_jogo': None, 'rodada': 1, 'pontuacao': 0, 'word_to_guess': None})
+            if st.button("Reiniciar", key="reiniciar_palavra"):
+                st.session_state.update({'escolha_palavra': None, 'rodada': 1, 'pontuacao_palavra': 0, 'sentenca': None})
