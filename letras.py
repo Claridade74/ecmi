@@ -14,15 +14,12 @@ df_int = pd.read_csv('letras_musicas_int.csv')
 # Troca o ícone da aba do site, apenas para melhorar no design
 st.set_page_config(page_icon='🎵')
 
-# Caminho relativo para a imagem de fundo
-background_image_path = "notasmusicais.png"
-
 # Adiciona a imagem de fundo usando CSS
 st.markdown(
     """
     <style>
     .main {
-        background-color: #92a8d1;
+        background-color: #7F00FF;
     }
     .title {
         text-align: center;
