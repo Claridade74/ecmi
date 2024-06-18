@@ -26,7 +26,7 @@ st.markdown(
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-position: center;
-        color: black; 
+        color: white; 
     }}
     </style>
     """,
