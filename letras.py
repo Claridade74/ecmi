@@ -70,11 +70,11 @@ if 'pontuacao' not in st.session_state:
 
 # Adiciona botões para o usuário escolher entre músicas nacionais e internacionais
 if st.session_state.escolha is None:
-    st.title("Escolha o tipo de música que você quer adivinhar:")
-    if st.button("Músicas Nacionais"):
+    st.title("Escolha o tipo de artista que você gostaria de adivinhar as músicas:")
+    if st.button("Artistas Nacionais"):
         st.session_state.escolha = "Nacionais"
         st.session_state.df = df_nac
-    elif st.button("Músicas Internacionais"):
+    elif st.button("Artistas Internacionais"):
         st.session_state.escolha = "Internacionais"
         st.session_state.df = df_int
 
