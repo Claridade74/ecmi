@@ -17,6 +17,12 @@ st.set_page_config(page_icon='🎵')
 # Caminho relativo para a imagem de fundo
 background_image_path = "notasmusicais.png" 
 
+try:
+    with open(background_image_path, 'rb') as f:
+        st.image(f, use_column_width=True)
+except FileNotFoundError:
+    st.error(f"Imagem de fundo não encontrada no caminho: {background_image_path}")
+
 # Adiciona a imagem de fundo usando CSS
 st.markdown(
     f"""
