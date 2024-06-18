@@ -180,7 +180,7 @@ with tab1:
             else:
                 st.write("Seus conhecimentos musicais são bem amplos!")
             if st.button("Reiniciar"):
-                st.session_state.update({'escolha': None, 'rodada': 1, 'pontuacao': 0, 'wordcloud': None}
+                st.session_state.update({'escolha': None, 'rodada': 1, 'pontuacao': 0, 'wordcloud': None})
 
 with tab2:                                        
     # Jogo Adivinhe a Palavra Faltante
