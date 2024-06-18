@@ -14,6 +14,9 @@ df_int = pd.read_csv('letras_musicas_int.csv')
 # Troca o ícone da aba do site, apenas para melhorar no design
 st.set_page_config(page_icon='🎵')
 
+st.title("Adivinhe Musical!")
+st.subheader("Escolha uma opção abaixo para jogar:")
+
 # Para colocar o texto explicativo na parte lateral do site 
 with st.sidebar:
     st.subheader('Adivinhe: Um Jogo para Testar seus Conhecimentos Musicais')
